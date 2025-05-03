@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khausar Enterprise - Online Shopping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        /* Header Styles */
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        .cart {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart i {
+            font-size: 22px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Products Section */
+        .featured-products, .categories {
+            padding: 60px 0;
+        }
+
+        .featured-products h2, .categories h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .product-card .price {
+            padding: 0 15px;
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+
+        .product-card .btn {
+            display: block;
+            margin: 15px;
+            text-align: center;
+        }
+
+        /* Categories Section */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .category-card:hover {
+            background: #e9ecef;
+            transform: translateY(-5px);
+        }
+
+        .category-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .category-card h3 {
+            font-size: 1.2rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 60px 0;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .contact-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li i {
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #4CAF50;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            background: #1a252f;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Khausar Enterprise</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Welcome to Khausar Enterprise</h2>
+            <p>Your one-stop shop for quality products at affordable prices</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="products" class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smartphone X">
+                    <h3>Smartphone X</h3>
+                    <p class="price">₦45,000</p>
+                    <button class="btn add-to-cart" data-id="1">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Laptop Pro">
+                    <h3>Laptop Pro</h3>
+                    <p class="price">₦120,000</p>
+                    <button class="btn add-to-cart" data-id="2">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Wireless Earbuds">
+                    <h3>Wireless Earbuds</h3>
+                    <p class="price">₦15,000</p>
+                    <button class="btn add-to-cart" data-id="3">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Men's Casual Shirt">
+                    <h3>Men's Casual Shirt</h3>
+                    <p class="price">₦5,000</p>
+                    <button class="btn add-to-cart" data-id="4">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2>Shop by Category</h2>
+            <div class="category-grid">
+                <a href="#electronics" class="category-card">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Electronics</h3>
+                </a>
+                <a href="#clothing" class="category-card">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Clothing</h3>
+                </a>
+                <a href="#groceries" class="category-card">
+                    <i class="fas fa-shopping-basket"></i>
+                    <h3>Groceries</h3>
+                </a>
+                <a href="#home" class="category-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Home Goods</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Khausar Enterprise</h2>
+                    <p>Khausar Enterprise is a leading online retail store based in Bauchi, Nigeria. We specialize in providing high-quality products at competitive prices to customers across the country.</p>
+                    <p>Founded by Haidar Abdullahi, our mission is to make shopping convenient and accessible for everyone, with a wide range of products from electronics to groceries.</p>
+                    <p>We pride ourselves on excellent customer service and fast delivery to ensure complete customer satisfaction.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Our Store">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; color: #2c3e50;">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>No.15 Liman Mahmud Street Bakaro Bauchi City, Bauchi State, Nigeria</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>+2347068388293</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>haidarabdullahi8293@gmail.com</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> No.15 Liman Mahmud Street Bakaro Bauchi City</li>
+                        <li><i class="fas fa-phone"></i> +2347068388293</li>
+                        <li><i class="fab fa-whatsapp"></i> 09390265240</li>
+                        <li><i class="fas fa-envelope"></i> haidarabdullahi8293@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Khausar Enterprise. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart functionality
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount();
+            
+            // Add to cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    addToCart(productId);
+                });
+            });
+            
+            function addToCart(productId) {
+                // In a real app, we would fetch product details from the server
+                // For this demo, we'll just add the ID
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id: productId, quantity: 1 });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                
+                // Show notification
+                alert('Product added to cart!');
+            }
+            
+            function updateCartCount() {
+                const count = cart.reduce((total, item) => total + item.quantity, 0);
+                document.querySelector('.cart-count').textContent = count;
+            }
+            
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will contact you soon.');
+                this.reset();
+            });
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
